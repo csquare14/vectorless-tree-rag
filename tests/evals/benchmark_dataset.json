@@ -1,0 +1,7 @@
+[
+  {
+    "document_id": "doc_policy_2026",
+    "query": "I am a UX Designer. Can I buy an $1,800 laptop from a foreign vendor in Germany, and what form do I need?",
+    "expected_node_ids": ["section_4.2", "section_8.1"]
+  }
+]

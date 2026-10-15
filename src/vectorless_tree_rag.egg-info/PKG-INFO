@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: vectorless-tree-rag
+Version: 0.1.0
+Summary: Agentic Multi-Document Tree-RAG & Knowledge Router
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: boto3>=1.28.0
+Requires-Dist: opentelemetry-api>=1.20.0
+Requires-Dist: opentelemetry-sdk>=1.20.0
+Requires-Dist: python-dotenv>=1.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4.0; extra == "dev"
+Requires-Dist: ruff>=0.1.0; extra == "dev"
