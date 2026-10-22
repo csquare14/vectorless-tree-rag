@@ -1,0 +1,45 @@
+name: Vectorless Tree-RAG CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-and-validate:
+    name: Code Quality & Terraform Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest flake8
+
+      - name: Run Python Lint Check
+        run: |
+          # Stop build if there are Python syntax errors or undefined names
+          flake8 src/ ask_engine.py ingest_pdf.py --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.8.0
+
+      - name: Validate Terraform Syntax
+        run: |
+          cd infrastructure
+          terraform init -backend=false
+          terraform validate
+
